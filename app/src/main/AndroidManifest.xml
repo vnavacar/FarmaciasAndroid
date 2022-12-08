@@ -13,6 +13,13 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.FarmaciasAndroid"
             tools:targetApi="31">
+        <activity android:name=".MapsActivity"
+                  android:label="@string/title_activity_maps"
+
+
+                />
+        <activity android:name=".Farmacia_activity"
+                  android:label="@string/Farmacia"/>
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
