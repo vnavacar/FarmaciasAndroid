@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,9 +101,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         Farmacia farmacia1=new Farmacia();
-                        farmacia1.setTitulo(jsonArray.getJSONObject(i).getString("title"));
-                        farmacia1.setLatitud(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("latitude"));
-                        farmacia1.setLongitud(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("longitude"));
+                        //Log.i("Farmacia:", jsonArray.getJSONObject(i).toString());
+                        //farmacia1.setTitulo(jsonArray.getJSONObject(i).getString("title"));
+                        farmacia1.setTitulo(jsonArray.getJSONObject(i).getJSONObject("properties").getString("title"));
+                        //farmacia1.setLatitud(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("latitude"));
+                        farmacia1.setLatitud(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(1));
+                        //farmacia1.setLongitud(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("longitude"));
+                        farmacia1.setLongitud(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(0));
                         farmacias.add(farmacia1);
                     } catch (JSONException jsone) {
                         jsone.printStackTrace();
