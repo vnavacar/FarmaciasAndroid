@@ -1,10 +1,11 @@
 package com.example.farmaciasandroid;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.farmaciasandroid.Constantes;
 
 import java.io.BufferedReader;
@@ -24,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lvIncidencias = (ListView) findViewById(R.id.lvIncidencias);
+        ListView lvFarmacias = (ListView) findViewById(R.id.lvFarmacias);
         farmacias = new ArrayList<>();
         adapter = new FarmaciaAdapter(this, farmacias);
-        lvIncidencias.setAdapter(adapter);
+        lvFarmacias.setAdapter(adapter);
     }
 
 
