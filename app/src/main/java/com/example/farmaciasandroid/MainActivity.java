@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private class DescargaDatos extends AsyncTask<String, Void, Void> {
 
-        private ProgressDialog dialog;
+        //private ProgressDialog dialog;
         private String resultado;
 
         @Override
