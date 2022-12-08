@@ -22,12 +22,12 @@ import java.util.Date;
 
 public class TareaDescarga extends AsyncTask<Void, Void, Void> {
 
-    private ArrayList<Incidencia> incidencias;
-    private IncidenciaAdapter adapter;
+    private ArrayList<Farmacia> farmacias;
+    private FarmaciaAdapter adapter;
 
-    public TareaDescarga(ArrayList<Incidencia> incidencias,
-                         IncidenciaAdapter adapter) {
-        this.incidencias = incidencias;
+    public TareaDescarga(ArrayList<Farmacia> farmacias,
+                         FarmaciaAdapter adapter) {
+        this.farmacias = farmacias;
         this.adapter = adapter;
     }
 
@@ -58,7 +58,7 @@ public class TareaDescarga extends AsyncTask<Void, Void, Void> {
             String coordenadas;
             String fechaInicio, fechaFin;
 
-            Incidencia incidencia = null;
+            Farmacia farmacia = null;
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 id = jsonArray.getJSONObject(i).getString("id");
@@ -79,20 +79,20 @@ public class TareaDescarga extends AsyncTask<Void, Void, Void> {
                         Double.parseDouble(latlong[0]),
                         Double.parseDouble(latlong[1]));
 
-                incidencia = new Incidencia();
-                incidencia.setId(Integer.parseInt(id));
-                incidencia.setTitulo(titulo);
-                incidencia.setCalle(calle);
-                incidencia.setMotivo(motivo);
-                incidencia.setTramo(tramo);
-                incidencia.setObservaciones(observaciones);
-                incidencia.setDescripcion(descripcion);
-                incidencia.setTipo(tipo);
-                incidencia.setLatitud(latLng.getLat());
-                incidencia.setLongitud(latLng.getLng());
-                incidencia.setInicio(Util.parseFecha(fechaInicio));
-                incidencia.setFin(Util.parseFecha(fechaFin));
-                incidencias.add(incidencia);
+                farmacia = new Farmacia();
+                farmacia.setId(Integer.parseInt(id));
+                farmacia.setTitulo(titulo);
+                farmacia.setCalle(calle);
+                farmacia.setMotivo(motivo);
+                farmacia.setTramo(tramo);
+                farmacia.setObservaciones(observaciones);
+                farmacia.setDescripcion(descripcion);
+                farmacia.setTipo(tipo);
+                farmacia.setLatitud(latLng.getLat());
+                farmacia.setLongitud(latLng.getLng());
+                farmacia.setInicio(Util.parseFecha(fechaInicio));
+                farmacia.setFin(Util.parseFecha(fechaFin));
+                farmacia.add(farmacia);
             }
         } catch (MalformedURLException mrule) {
             mrule.printStackTrace();
