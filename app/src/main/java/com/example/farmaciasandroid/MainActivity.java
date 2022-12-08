@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 resultado = sb.toString();
 
                 JSONObject json = new JSONObject(resultado);
-                JSONArray jsonArray = json.getJSONArray("@graph");
+                JSONArray jsonArray = json.getJSONArray("features");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         Farmacia farmacia1=new Farmacia();
