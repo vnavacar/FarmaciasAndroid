@@ -12,63 +12,56 @@ import java.util.ArrayList;
 
 public class FarmaciaAdapter extends BaseAdapter {
 
+
+    private Context context;
     private LayoutInflater inflater;
+
+    private int layout;
     private ArrayList<Farmacia> farmacias;
 
-    public FarmaciaAdapter(Context contexto,
+    public FarmaciaAdapter(Context contexto,int layout,
                              ArrayList<Farmacia> farmacias) {
 
-        inflater = LayoutInflater.from(contexto);
+        this.context = contexto;
+        this.layout = layout;
         this.farmacias = farmacias;
-    }
-
-    static class ViewHolder {
-        ImageView icono;
-        TextView titulo;
-        TextView calle;
-        TextView motivo;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder holder = null;
-
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.farmacia, null);
-
-            holder = new ViewHolder();
-            holder.icono = (ImageView) convertView.findViewById(R.id.ivIcono);
-            holder.titulo = (TextView) convertView.findViewById(R.id.tvTitulo);
-            holder.calle = (TextView) convertView.findViewById(R.id.tvCalle);
-            holder.motivo = (TextView) convertView.findViewById(R.id.tvMotivo);
-
-            convertView.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        Farmacia farmacia = farmacias.get(position);
-        holder.titulo.setText(farmacia.getTitulo());
-        holder.calle.setText(farmacia.getCalle());
-        holder.motivo.setText(farmacia.getMotivo());
-
-        return convertView;
     }
 
     @Override
     public int getCount() {
-        return farmacias.size();
+        return this.farmacias.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return farmacias.get(i);
+    public Object getItem(int position) {
+        return this.farmacias.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return farmacias.get(i).getId();
+    public long getItemId(int id) {
+        return id;
+    }
+
+    @Override
+
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        // Copiamos la vista
+        View v = convertView;
+
+        //Inflamos la vista con nuestro propio layout
+        LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+
+        v = layoutInflater.inflate(R.layout.farmacia, null);
+        // Valor actual según la posición
+
+        Farmacia currentName = farmacias.get(position);
+
+        // Referenciamos el elemento a modificar y lo rellenamos
+        TextView textViewnombre = (TextView) v.findViewById(R.id.nombre);
+        TextView textViewtelefono = (TextView) v.findViewById(R.id.telefono);
+        textViewnombre.setText(currentName.getTitulo());
+        textViewtelefono.setText(currentName.getTelefono());
+        //Devolvemos la vista inflada
+        return v;
     }
 }
