@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ArrayList<Farmacia> farmacias;
+
+    private ListView lvfarmacias;
     private FarmaciaAdapter adapter;
 
     @Override
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         farmacias= new ArrayList<Farmacia>();
 
-        ListView lvfarmacias = (ListView) findViewById(R.id.lvFarmacias);
+
+        ListView lvfarmacias = findViewById(R.id.lvFarmacias);
 
         adapter = new FarmaciaAdapter(this,
                 R.layout.farmacia, farmacias);
@@ -118,7 +121,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             } catch (JSONException jsone) {
                 jsone.printStackTrace();
             }
+
+            //Mostrar lista de farmacias
+
+            adapter = new FarmaciaAdapter(MainActivity.this,
+                    R.layout.farmacia, farmacias);
+
             return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            //dialog.dismiss();
+            adapter.notifyDataSetChanged();
         }
 
 
