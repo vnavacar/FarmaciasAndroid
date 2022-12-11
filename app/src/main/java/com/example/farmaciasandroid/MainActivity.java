@@ -1,15 +1,12 @@
 package com.example.farmaciasandroid;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         farmacias= new ArrayList<Farmacia>();
 
 
-        ListView lvfarmacias = findViewById(R.id.lvFarmacias);
-
+        //ListView lvfarmacias = findViewById(R.id.lvFarmacias);
+        /*
         adapter = new FarmaciaAdapter(this,
                 R.layout.farmacia, farmacias);
         lvfarmacias.setAdapter(adapter);
         lvfarmacias.setOnItemClickListener(this);
-
+        */
 
         DescargaDatos descarga = new DescargaDatos();
         descarga.execute(Constantes.URL);
@@ -111,6 +108,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         farmacia1.setLatitud(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(1));
                         //farmacia1.setLongitud(jsonArray.getJSONObject(i).getJSONObject("location").getDouble("longitude"));
                         farmacia1.setLongitud(jsonArray.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates").getDouble(0));
+
+                        //farmacia1.setTelefono(jsonArray.getJSONObject(i).getJSONObject("properties").getString("Teléfono"));
+                        //el telefono hay que extrerlo  de la descripcion
+                        String descripcion=jsonArray.getJSONObject(i).getJSONObject("properties").getString("description");
+                        String telefono = extractorTelefono.extraerTelefono(descripcion);
+                        farmacia1.setTelefono(telefono);
+
                         farmacias.add(farmacia1);
                     } catch (JSONException jsone) {
                         jsone.printStackTrace();
@@ -122,17 +126,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 jsone.printStackTrace();
             }
 
-            //Mostrar lista de farmacias
 
-            adapter = new FarmaciaAdapter(MainActivity.this,
-                    R.layout.farmacia, farmacias);
+
 
             return null;
         }
 
         protected void onPostExecute(Void result) {
-            //dialog.dismiss();
-            adapter.notifyDataSetChanged();
+
+            //adapter = new FarmaciaAdapter(MainActivity.this, R.layout.farmacia, farmacias);
+
+            adapter = new FarmaciaAdapter(MainActivity.this, R.layout.farmacia, farmacias);
+
+            lvfarmacias = findViewById(R.id.lvFarmacias);
+
+            lvfarmacias.setAdapter(adapter);
+
+            lvfarmacias.setOnItemClickListener(MainActivity.this);
         }
 
 
